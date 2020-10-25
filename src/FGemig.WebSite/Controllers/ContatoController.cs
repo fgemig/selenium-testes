@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using FGemig.WebSite.Models;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 
 namespace FGemig.WebSite.Controllers
@@ -14,6 +15,15 @@ namespace FGemig.WebSite.Controllers
 
         public IActionResult Index()
         {
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Index([Bind("Nome, Assunto, Email, Telefone, Mensagem")] ContatoViewModel viewModel)
+        {
+            ViewBag.Mensagem = $"Olá, {viewModel.Nome}! Obrigado por entrar em contato!";
+
             return View();
         }
     }

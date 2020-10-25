@@ -1,4 +1,6 @@
-﻿@{
+﻿@model FGemig.WebSite.Models.ContatoViewModel
+
+@{
     ViewData["Title"] = "Contato";
 }
 
@@ -11,42 +13,52 @@
             </div>
             <div class="col-md-6">
                 <h2 class="text-uppercase font-weight-bold">Fale Conosco</h2>
-                <form action="">
+                <form asp-action="Index" asp-controller="Contato">
                     <div class="row">
                         <div class="col-lg-6">
                             <div class="form-group">
-                                <input type="text" class="form-control mt-2" placeholder="Nome" required>
+                                <input type="text" class="form-control mt-2" placeholder="Nome" asp-for="Nome">
+                                <span class="text-danger" asp-validation-for="Nome"></span>
                             </div>
                         </div>
                         <div class="col-lg-6">
                             <div class="form-group">
-                                <input type="text" class="form-control mt-2" placeholder="Assunto" required>
+                                <input type="text" class="form-control mt-2" placeholder="Assunto" asp-for="Assunto">
+                                <span class="text-danger" asp-validation-for="Assunto"></span>
                             </div>
                         </div>
                         <div class="col-lg-6">
                             <div class="form-group">
-                                <input type="email" class="form-control mt-2" placeholder="Email" required>
+                                <input type="email" class="form-control mt-2" placeholder="Email" asp-for="Email">
+                                <span class="text-danger" asp-validation-for="Email"></span>
                             </div>
                         </div>
                         <div class="col-lg-6">
                             <div class="form-group">
-                                <input type="number" class="form-control mt-2" placeholder="Telefone" required>
+                                <input type="text" class="form-control mt-2" placeholder="Telefone" asp-for="Telefone">
+                                <span class="text-danger" asp-validation-for="Telefone"></span>
                             </div>
                         </div>
                         <div class="col-12">
                             <div class="form-group">
-                                <textarea class="form-control" id="exampleFormControlTextarea1" placeholder="Deixe sua mensagem" rows="3" required></textarea>
+                                <textarea class="form-control" placeholder="Deixe sua mensagem" rows="3" asp-for="Mensagem"></textarea>
+                                <span class="text-danger" asp-validation-for="Mensagem"></span>
                             </div>
                         </div>
-                        
+
                         <div class="col-12">
                             <button class="btn btn-light float-right" type="submit">Enviar</button>
                         </div>
                     </div>
                 </form>
-               
+
             </div>
 
         </div>
     </div>
 </div>
+
+@section Scripts {
+    <script src="~/lib/jquery-validation/dist/jquery.validate.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js"></script>
+}
