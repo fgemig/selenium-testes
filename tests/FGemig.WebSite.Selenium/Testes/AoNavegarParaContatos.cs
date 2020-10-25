@@ -1,6 +1,6 @@
 ﻿using FGemig.WebSite.Selenium.Fixtures;
+using FGemig.WebSite.Selenium.Helpers;
 using OpenQA.Selenium;
-using System.Linq;
 using Xunit;
 
 namespace FGemig.WebSite.Selenium.Testes
@@ -14,68 +14,61 @@ namespace FGemig.WebSite.Selenium.Testes
         public AoNavegarParaContatos(TestFixture fixture)
         {
             _driver = fixture.Driver;
-            _url = "https://localhost:44305/Contato";
+            _url = $"{TestHelpers.UrlBase}/Contato";
         }
 
-        private void NavegarParaHome()
+        private void NavegarParaContato()
         {
             _driver.Navigate().GoToUrl(_url);
         }
 
         [Fact]
-        public void DeveMostrarPlanosNaBarraDeTitulo()
+        public void DeveMostrarContatoNaBarraDeTitulo()
         {
-            NavegarParaHome();
+            NavegarParaContato();
 
-            Assert.Contains("Planos", _driver.Title);
+            Assert.Contains("Contato", _driver.Title);
         }
 
         [Fact]
-        public void DeveExibirOTituloNossosPlanos()
+        public void DeveExibirOTituloContato()
         {
-            NavegarParaHome();
+            NavegarParaContato();
 
-            var elemento = _driver.FindElement(By.XPath("//div[contains(@class,'section-title')]/h2"));
-
-            var elementoTexto = elemento.Text;
-
-            Assert.Equal("NOSSOS PLANOS", elementoTexto);
+            Assert.Contains("Fale Conosco", _driver.PageSource);
         }
-
-        [Fact]
-        public void DeveMostrarAsInformacoesDoPlanoBasico()
+      
+        [Theory]
+        [InlineData("Pessoa 1", "Assunto Pessoa 1", "pessoa1@email.com", "(11) 11111-1111", "Mensagem formulário pessoa 1")]
+        [InlineData("Pessoa 2", "Assunto Pessoa 2", "pessoa2@email.com", "(11) 22222-2222", "Mensagem formulário pessoa 2")]
+        [InlineData("Pessoa 3", "Assunto Pessoa 3", "pessoa3@email.com", "(11) 33333-3333", "Mensagem formulário pessoa 3")]
+        public void DadoInformacoesValidasDeveEnviarInformacoesDeContato(
+            string nome, 
+            string assunto, 
+            string email, 
+            string telefone, 
+            string mensagem)
         {
-            NavegarParaHome();
+            NavegarParaContato();
 
-            var planos = _driver.FindElements(By.XPath("//div[contains(@class,'price-title')]/h4"));
+            var inputNome = _driver.FindElement(By.Id("Nome"));
+            var inputAssunto = _driver.FindElement(By.Id("Assunto"));
+            var inputEmail = _driver.FindElement(By.Id("Email"));
+            var inputTelefone = _driver.FindElement(By.Id("Telefone"));
+            var inputMensagem = _driver.FindElement(By.Id("Mensagem"));
 
-            var existePlanoBasico = planos.Any(c => c.Text.Contains("BÁSICO"));           
+            inputNome.SendKeys(nome);
+            inputAssunto.SendKeys(assunto);
+            inputEmail.SendKeys(email);
+            inputTelefone.SendKeys(telefone);
+            inputMensagem.SendKeys(mensagem);
 
-            Assert.True(existePlanoBasico);
-        }
+            var inputSubmit = _driver.FindElement(By.XPath("//button[@type='submit']"));
+            inputSubmit.Click();
 
-        [Fact]
-        public void DeveMostrarAsInformacoesDoPlanoIntermediario()
-        {
-            NavegarParaHome();
+            var mensagemEsperada = $"Olá, {nome}! Obrigado por entrar em contato!";
 
-            var planos = _driver.FindElements(By.XPath("//div[contains(@class,'price-title')]/h4"));
-
-            var existePlanoBasico = planos.Any(c => c.Text.Contains("INTERMEDIÁRIO"));
-
-            Assert.True(existePlanoBasico);
-        }
-
-        [Fact]
-        public void DeveMostrarAsInformacoesDoPlanoAvancado()
-        {
-            NavegarParaHome();
-
-            var planos = _driver.FindElements(By.XPath("//div[contains(@class,'price-title')]/h4"));
-
-            var existePlanoBasico = planos.Any(c => c.Text.Contains("AVANÇADO"));
-
-            Assert.True(existePlanoBasico);
-        }
+            Assert.Contains(mensagemEsperada, _driver.PageSource);
+        }      
     }
 }

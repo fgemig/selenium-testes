@@ -16,7 +16,7 @@ namespace FGemig.WebSite.Selenium.Fixtures
 
         public void Dispose()
         {
-            Driver.Quit();
+           Driver.Quit();
         }
     }
 }

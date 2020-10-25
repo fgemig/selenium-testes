@@ -7,5 +7,7 @@ namespace FGemig.WebSite.Selenium.Helpers
     {
         public static string CaminhoDriver = Path.GetDirectoryName(
             Assembly.GetExecutingAssembly().Location);
+
+        public static string UrlBase = "https://localhost:44305";
     }
 }

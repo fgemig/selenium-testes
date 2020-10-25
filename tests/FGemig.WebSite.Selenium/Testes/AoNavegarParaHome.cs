@@ -1,4 +1,5 @@
 ﻿using FGemig.WebSite.Selenium.Fixtures;
+using FGemig.WebSite.Selenium.Helpers;
 using OpenQA.Selenium;
 using System.Linq;
 using Xunit;
@@ -14,7 +15,7 @@ namespace FGemig.WebSite.Selenium.Testes
         public AoNavegarParaHome(TestFixture fixture)
         {
             _driver = fixture.Driver;
-            _url = "https://localhost:44305/";
+            _url = $"{TestHelpers.UrlBase}/Home";
         }
 
         private void NavegarParaHome()
