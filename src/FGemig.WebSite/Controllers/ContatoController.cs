@@ -15,16 +15,16 @@ namespace FGemig.WebSite.Controllers
 
         public IActionResult Index()
         {
-            return View();
+            return View(new ContatoViewModel());
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
         public IActionResult Index([Bind("Nome, Assunto, Email, Telefone, Mensagem")] ContatoViewModel viewModel)
         {
-            ViewBag.Mensagem = $"Olá, {viewModel.Nome}! Obrigado por entrar em contato!";
+            _logger.LogDebug("Nova mensagem recebida via formulário de contato...");
 
-            return View();
+            return View(viewModel);
         }
     }
 }

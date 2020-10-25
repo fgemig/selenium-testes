@@ -15,6 +15,11 @@
                 <h2 class="text-uppercase font-weight-bold">Fale Conosco</h2>
                 <form asp-action="Index" asp-controller="Contato">
                     <div class="row">
+                        <div class="col-md-12">
+                            <vc:mensagem-contato nome="@Model.Nome"></vc:mensagem-contato>
+                        </div>
+                    </div>
+                    <div class="row">
                         <div class="col-lg-6">
                             <div class="form-group">
                                 <input type="text" class="form-control mt-2" placeholder="Nome" asp-for="Nome">
@@ -59,6 +64,5 @@
 </div>
 
 @section Scripts {
-    <script src="~/lib/jquery-validation/dist/jquery.validate.js"></script>
-    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js"></script>
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial"); }
 }
