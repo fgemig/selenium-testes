@@ -211,3 +211,60 @@ a.box-btn {
     a.box-btn:hover, a.border-btn:hover {
         background-color: #d35400;
     }
+
+#form-contato {    
+    letter-spacing: 2px;
+}
+
+    #form-contato a {
+        text-decoration: none;
+    }
+
+
+@media (max-width: 575.98px) {
+
+    #form-contato {
+        padding-bottom: 800px;
+    }
+
+        #form-contato .maps iframe {
+            width: 100%;
+            height: 450px;
+        }
+}
+
+
+@media (min-width: 576px) {
+
+    #form-contato {
+        padding-bottom: 800px;
+    }
+
+        #form-contato .maps iframe {
+            width: 100%;
+            height: 450px;
+        }
+}
+
+@media (min-width: 768px) {
+
+    #form-contato {
+        padding-bottom: 350px;
+    }
+
+        #form-contato .maps iframe {
+            width: 100%;
+            height: 850px;
+        }
+}
+
+@media (min-width: 992px) {
+    #form-contato {
+        padding-bottom: 200px;
+    }
+
+        #form-contato .maps iframe {
+            width: 100%;
+            height: 700px;
+        }
+}
